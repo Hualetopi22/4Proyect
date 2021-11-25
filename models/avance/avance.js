@@ -29,6 +29,6 @@ const avanceSchema = new mongoose.Schema({
   },
 });
 
-const ModeloAvance = model("Avance", avanceSchema);
+const ModeloAvance = model("Avance", avanceSchema,"avances");
 
 export { ModeloAvance };

@@ -4,7 +4,7 @@ import { UserModel } from "./usuario.js";
 const resolversUsuario = {
   Query: {
     Usuarios: async (parent, args) => {
-      console.log(parent);
+      console.log("EJECUTANCDO CONSULTA DE USUARIOS",parent);
       const usuarios = await UserModel.find();
       return usuarios;
     },
@@ -13,12 +13,11 @@ const resolversUsuario = {
       console.log(usuario);
       return usuario;
     },
-    user: async (_, __, {db}) => {
-      return await db.collection("usuario").find().toArray();
+    user: async (parent, args) => {
+      return await console.log("parent",parent);
     },
     prueba: async (parent, args) => {
-      console.log("parent prueba", parent);
-      return await UserModel.findOne({ _id: args._id});
+      return await UserModel.find();
     },
   },
   Mutation: {
@@ -28,6 +27,7 @@ const resolversUsuario = {
         apellido: args.apellido,
         identificacion: args.identificacion,
         correo: args.correo,
+        password: args.password,
         rol: args.rol,
       });
 

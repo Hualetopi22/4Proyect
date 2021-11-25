@@ -79,6 +79,6 @@ projectSchema.virtual('avances', {
   foreignField: 'proyecto',
 });
 
-const ProjectModel = model('Proyecto', projectSchema);
+const ProjectModel = model('Proyecto', projectSchema,"proyecto");
 
 export { ProjectModel };

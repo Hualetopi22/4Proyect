@@ -4,8 +4,13 @@ const resolversProyecto = {
   Query: {
     Proyectos: async (parent, args) => {
       const proyectos = await ProjectModel.find()
-        .populate("lider")
-        .populate("avances");
+        .populate({
+          path: "avances",
+          populate: {
+            path: "creadoPor",
+          },
+        })
+        .populate("lider");
       return proyectos;
     },
   },
