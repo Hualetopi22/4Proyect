@@ -8,5 +8,5 @@ Sistema para la gestión de proyectos de investigación realizado por el grupo 4
 #### yarn start.
 >
 >Enlace de apollo para pruebas de backend
-#### http://localhost:4000/graphql
+>#### http://localhost:4000/graphql
 
