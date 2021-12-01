@@ -3,14 +3,18 @@ import { ProjectModel } from "./proyecto.js";
 const resolversProyecto = {
   Query: {
     Proyectos: async (parent, args) => {
-      const proyectos = await ProjectModel.find()
-        .populate({
-          path: "avances",
-          populate: {
-            path: "creadoPor",
-          },
-        })
-        .populate("lider");
+      const proyectos = await ProjectModel.find().populate([
+        { path: "lider" },
+        { path: "avances" },
+        { path: "inscripciones", populate: { path: "estudiante" } },
+      ]);
+      //   {
+      //   path: "avances",
+      //   populate: {
+      //     path: "creadoPor",
+      //   },
+      // })
+      // .populate("lider");
       return proyectos;
     },
   },
@@ -27,6 +31,14 @@ const resolversProyecto = {
         objetivos: args.objetivos,
       });
       return proyectoCreado;
+    },
+    editarProyecto: async (parent, args) => {
+      const proyectoEdit = await ProjectModel.findOneAndUpdate(
+        args._id,
+        { ...args.editProyecto },
+        { new: true }
+      );
+      return proyectoEdit;
     },
   },
 };

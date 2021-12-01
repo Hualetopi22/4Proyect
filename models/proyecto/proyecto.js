@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 // import { Enum_EstadoProyecto, Enum_FaseProyecto, Enum_TipoObjetivo } from '../enums/enums';
 // import { ObjectiveModel } from '../objective';
-import { UserModel } from '../usuario/usuario.js';
+import { UserModel } from "../usuario/usuario.js";
 
 // interface Proyecto {
 //   nombre: string;
@@ -35,24 +35,24 @@ const projectSchema = new Schema(
     },
     estado: {
       type: String,
-      enum: ['ACTIVO', 'INACTIVO'],
-      default: 'INACTIVO',
+      enum: ["ACTIVO", "INACTIVO"],
+      default: "INACTIVO",
     },
     fase: {
       type: String,
-      enum: ['INICIADO', 'DESARROLLO', 'TERMINADO', 'NULO'],
-      default: 'NULO',
+      enum: ["INICIADO", "DESARROLLO", "TERMINADO", "NULO"],
+      default: "NULO",
     },
     lider: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: UserModel,
     },
-    inscripciones: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: UserModel,
-    },
+    // inscripciones: {
+    //   type: Schema.Types.ObjectId,
+    //   required: true,
+    //   ref: UserModel,
+    // },
     objetivos: [
       {
         descripcion: {
@@ -61,7 +61,7 @@ const projectSchema = new Schema(
         },
         tipo: {
           type: String,
-          enum: ['GENERAL', 'ESPECIFICO'],
+          enum: ["GENERAL", "ESPECIFICO"],
           required: true,
         },
       },
@@ -73,12 +73,18 @@ const projectSchema = new Schema(
   }
 );
 
-projectSchema.virtual('avances', {
-  ref: 'Avance',
-  localField: '_id',
-  foreignField: 'proyecto',
+projectSchema.virtual("avances", {
+  ref: "Avance",
+  localField: "_id",
+  foreignField: "proyecto",
 });
 
-const ProjectModel = model('Proyecto', projectSchema,"proyecto");
+projectSchema.virtual("inscripciones", {
+  ref: "Inscripcion",
+  localField: "_id",
+  foreignField: "proyecto",
+});
+
+const ProjectModel = model("Proyecto", projectSchema, "proyecto");
 
 export { ProjectModel };
