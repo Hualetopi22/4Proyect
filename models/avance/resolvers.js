@@ -19,6 +19,7 @@ const resolversAvance = {
     },
   },
   Mutation: {
+    //para el estudiante
     crearAvance: async (parent, args) => {
       const avanceCreado = ModeloAvance.create({
         fecha: args.fecha,

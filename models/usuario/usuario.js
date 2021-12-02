@@ -48,11 +48,11 @@ const userSchema = new Schema({
     required: true,
     enum: ["ESTUDIANTE", "LIDER", "ADMINISTRADOR"],
   },
-  // estado: {
-  //   type: String,
-  //   enum: ["PENDIENTE", "AUTORIZADO", "NO_AUTORIZADO"],
-  //   default: "PENDIENTE",
-  // },
+  estado: {
+    type: String,
+    enum: ["PENDIENTE", "AUTORIZADO", "NO_AUTORIZADO"],
+    default: "PENDIENTE",
+  },
   password: {
     type: String,
     required: true,
