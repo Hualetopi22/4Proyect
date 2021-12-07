@@ -5,7 +5,7 @@ const resolversUsuario = {
   Query: {
     Usuarios: async (parent, args) => {
       console.log("EJECUTANCDO CONSULTA DE USUARIOS", parent);
-      const usuarios = await UserModel.find();
+      const usuarios = await UserModel.find({ ...args.filtro });
       return usuarios;
     },
     Usuario: async (parent, args) => {
@@ -18,6 +18,11 @@ const resolversUsuario = {
     },
     prueba: async (parent, args) => {
       return await UserModel.find();
+    },
+    //Como lider consulta listado de estudiantes
+    estudiantes: async (parent, args) => {
+      const estudiantel = await UserModel.find({ rol: "ESTUDIANTE" });
+      return estudiantel;
     },
   },
   Mutation: {
