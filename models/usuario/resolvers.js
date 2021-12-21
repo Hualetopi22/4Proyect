@@ -16,9 +16,6 @@ const resolversUsuario = {
     user: async (parent, args) => {
       return await console.log("parent", parent);
     },
-    prueba: async (parent, args) => {
-      return await UserModel.find();
-    },
     //Como lider consulta listado de estudiantes
     estudiantes: async (parent, args) => {
       const estudiantel = await UserModel.find({ rol: "ESTUDIANTE" });
