@@ -53,19 +53,19 @@ const projectSchema = new Schema(
     //   required: true,
     //   ref: UserModel,
     // },
-    objetivos: [
-      {
-        descripcion: {
-          type: String,
-          required: true,
-        },
-        tipo: {
-          type: String,
-          enum: ["GENERAL", "ESPECIFICO"],
-          required: true,
-        },
-      },
-    ],
+    // objetivos: [
+    //   {
+    //     descripcion: {
+    //       type: String,
+    //       required: true,
+    //     },
+    //     tipo: {
+    //       type: String,
+    //       enum: ["GENERAL", "ESPECIFICO"],
+    //       required: true,
+    //     },
+    //   },
+    // ],
   },
   {
     toJSON: { virtuals: true }, // So `res.json()` and other `JSON.stringify()` functions include virtuals
@@ -84,6 +84,11 @@ projectSchema.virtual("inscripciones", {
   localField: "_id",
   foreignField: "proyecto",
 });
+// projectSchema.virtual("lider", {
+//   ref: "Usuario",
+//   localField: "_id",
+//   foreignField: "user",
+// });
 
 const ProjectModel = model("Proyecto", projectSchema, "proyecto");
 

@@ -13,11 +13,22 @@ const tiposUsuario = gql`
     rol: String
     
   }
+
+  input FiltroUsuarios{
+    _id: ID
+    correo: String
+    identificacion: String
+    rol: String
+    estado: Enum_EstadoUsuario
+  }
+
+  
   type Query {
-    Usuarios: [Usuario]
+    Usuarios(filtro: FiltroUsuarios): [Usuario]
     Usuario(_id: String!): Usuario
     user: [Usuario]
     prueba: [Usuario]
+    estudiantes: [Usuario]
   }
   type Mutation {
     crearUsuario(
@@ -30,12 +41,12 @@ const tiposUsuario = gql`
       estado: Enum_EstadoUsuario
     ): Usuario
     editarUsuario(
-      _id: String!
-      nombre: String!
-      apellido: String!
-      identificacion: String!
-      correo: String!
-      rol: Enum_Rol!
+      _id: String
+      nombre: String
+      apellido: String
+      identificacion: String
+      correo: String
+      rol: Enum_Rol
       estado: Enum_EstadoUsuario
     ): Usuario
     eliminarUsuario(_id: String, correo: String): Usuario

@@ -1,8 +1,8 @@
 import { UserModel } from "../../models/usuario/usuario.js";
 import bcrypt from "bcrypt";
-import { generateToken } from ".././utils/tokenUtilis.js";
+import { generateToken } from "../../utils/tokenUtils.js";
 
-const resolverAtenticacion = {
+const resolverAutenticacion = {
   Mutation: {
     registro: async (parent, args) => {
       const salt = await bcrypt.genSalt(10);
@@ -30,9 +30,43 @@ const resolverAtenticacion = {
     },
 
     login: async (parent, args) => {
-      console.log();
-    }
+      const usuarioEncontrado = await UserModel.findOne({
+        correo: args.correo,
+      });
+      if (await bcrypt.compare(args.password, usuarioEncontrado.password)) {
+        return {
+          token: generateToken({
+            _id: usuarioEncontrado._id,
+            nombre: usuarioEncontrado.nombre,
+            apellido: usuarioEncontrado.apellido,
+            identificacion: usuarioEncontrado.identificacion,
+            correo: usuarioEncontrado.correo,
+            rol: usuarioEncontrado.rol,
+          }),
+        };
+      }
+    },
+
+    refreshToken: async (parent, args, context) => {
+      console.log("contexto", context);
+      if (!context.userData) {
+        return {
+          error: "token no valido",
+        };
+      } else {
+        return {
+          token: generateToken({
+            _id: context.userData._id,
+            nombre: context.userData.nombre,
+            apellido: context.userData.apellido,
+            identificacion: context.userData.identificacion,
+            correo: context.userData.correo,
+            rol: context.userData.rol,
+          }),
+        };
+      }
+    },
   },
 };
 
-export { resolverAtenticacion };
+export { resolverAutenticacion };
