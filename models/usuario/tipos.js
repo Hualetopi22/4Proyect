@@ -11,6 +11,7 @@ const tiposUsuario = gql`
     identificacion: String
     password: String
     rol: String
+    estado: String
     
   }
 
